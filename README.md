@@ -12,6 +12,10 @@ install_github("lionel68/addSE")
 The function can then be used with code looking like:
 
 ```r
+library(addSE)
+
+?add_se
+
 data("iris")
 m <- lm(Sepal.Length ~ Species * Sepal.Width, iris)
 #to get the fitted average Sepal length per species
@@ -30,6 +34,8 @@ add_se(m, name_f = "Species", name_x = "Sepal.Width")
 ```
 
 These results can then be used for plotting or reporting in result tables.
+
+So far the following models are supported: lm, glm, glm.nb (MASS), lme (nlme), lmer (lme4), glmer (lme4)
 
 ## TODOs:
 
