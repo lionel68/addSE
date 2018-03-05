@@ -1,5 +1,6 @@
-add_se.glmmTMB <- function(model,name_f,name_x="Intercept"){
+add_se.glmmTMB <- function(model,name_f,name_x="Intercept",type="response"){
   linkinv <- model$modelInfo$family$linkinv
+  tt <- type
   #grab the standard error of the coefficients
   se_vec <- sqrt(diag(vcov(model)$cond))
   names(se_vec) <- names(fixef(model)$cond)
@@ -26,6 +27,6 @@ add_se.glmmTMB <- function(model,name_f,name_x="Intercept"){
     vcov_f <- vcov_f[grep(":",names(vcov_f))]
     coef_f <- c(fixef(model)$cond[name_x], fixef(model)$cond[name_x]+fixef(model)$cond[names(vcov_f)])
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type = tt)
   return(out)
 }

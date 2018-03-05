@@ -2,35 +2,37 @@
 % Please edit documentation in R/add_se.r
 \name{add_se}
 \alias{add_se}
-\title{Compute standard error for group-level effects in linear models}
+\title{Adding standard errors in regression}
 \usage{
-add_se(model, name_f, name_x = "Intercept")
+add_se(model, name_f, name_x = "Intercept", type = "response")
 }
 \arguments{
 \item{model}{A fitted model object}
 
-\item{name_f}{A character, the name of the factor variables}
+\item{name_f}{A character, the name of the factor variable}
 
 \item{name_x}{A character, the name of a continuous variable interacting with name_f, default is Intercept}
+
+\item{type}{whether the coefficient and the confidence interval should be reported on the link (type="link") or response scale (type="response", default), note that SE are only reported on the link scale.}
 }
 \value{
 A data frame where the rows are the different level of the factor, and the columns contain the following values:
 
-Coef_link : fitted coefficient value on the link scale
+Coef : fitted coefficient value on the link or on the response scale
 
-SE : standard error of the fitted coefficient on the link scale
+SE : standard error of the fitted coefficient on the link scale (only when type="link")
 
-Coef_resp : fitted coefficient on the response scale (applying the inverse of the link function)
-
-LCI, UCI : lower and upper bound of the 95\% confidence interval of the fitted coefficient on the response scale
+LCI, UCI : lower and upper bound of the 95\% confidence interval of the fitted coefficient on the appropriate scale (link or response)
 }
 \description{
 \code{add_se} compute the coefficients, standard errors and confidence intervals for different levels of factor variables used in linear models.
 }
 \details{
-Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[glmmTMB]{glmmTMB}}
+Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}}, \code{\link[nlmer]{lme}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[glmmTMB]{glmmTMB}}
 
-Note that name_x must be the name of continuous variable interacting with the factor, factor - factor interaction are not supported.
+Name_x must be the name of continuous variable interacting with the factor, factor - factor interaction are not supported.
+
+Default treatment contrasts are expected in the model, see \code{\link[stats]{contrasts}}, other type of contrasts might work but will lead to non-sensical results.
 }
 \examples{
 data(iris)

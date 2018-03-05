@@ -1,5 +1,6 @@
-add_se.glm <- function(model,name_f,name_x="Intercept"){
+add_se.glm <- function(model,name_f,name_x="Intercept",type="response"){
   linkinv <- model$family$linkinv
+  tt <- type
   #grab the standard error of the coefficients
   se_vec <- summary(model)$coefficients[,2]
   #keep the baseline name for later use
@@ -25,6 +26,6 @@ add_se.glm <- function(model,name_f,name_x="Intercept"){
     vcov_f <- vcov_f[grep(":",names(vcov_f))]
     coef_f <- c(coef(model)[name_x], coef(model)[name_x]+coef(model)[names(vcov_f)])
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type = tt)
   return(out)
 }

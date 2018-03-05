@@ -1,11 +1,11 @@
-add_se.lmerMod <- function(model,name_f,name_x="Intercept",type="response"){
+add_se.lme <- function(model,name_f,name_x="Intercept",type="response"){
   linkinv <- identity
   tt <- type
   #grab the standard error of the coefficients
   se_vec <- sqrt(diag(vcov(m)))
   names(se_vec) <- names(fixef(m))
   #keep the baseline name for later use
-  base_name <- paste0(name_f,levels(model@frame[,name_f])[1])
+  base_name <- paste0(name_f,levels(model$data[,name_f])[1])
   if(name_x=="Intercept"){
     #the standard error of the intercept
     se_x <- se_vec[1]
