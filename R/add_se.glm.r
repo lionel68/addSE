@@ -4,7 +4,7 @@ add_se.glm <- function(model,name_f,name_x="Intercept",type="response"){
   #grab the standard error of the coefficients
   se_vec <- summary(model)$coefficients[,2]
   #keep the baseline name for later use
-  base_name <- paste0(name_f,levels(m$model[,name_f])[1])
+  base_name <- paste0(name_f,levels(model$model[,name_f])[1])
   if(name_x=="Intercept"){
     #the stabdard error of the intercept
     se_x <- se_vec[1]
