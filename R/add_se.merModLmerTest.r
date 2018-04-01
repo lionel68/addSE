@@ -5,8 +5,7 @@ add_se.merModLmerTest <- function(model,name_f,name_x="Intercept",type="response
   se_vec <- sqrt(diag(as.matrix(vcov(model))))
   names(se_vec) <- names(fixef(model))
   #keep the baseline name for later use
-
-  row_names <- paste0(name_f,levels(model@frame[,name_f]))
+  base_name <- paste0(name_f,levels(model@frame[,name_f])[1])
 
   if(name_x=="Intercept"){
     #the standard error of the intercept
@@ -30,7 +29,7 @@ add_se.merModLmerTest <- function(model,name_f,name_x="Intercept",type="response
     coef_f <- c(fixef(model)[name_x], fixef(model)[name_x]+fixef(model)[names(vcov_f)])
   }
 
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, row_names, type = tt)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name, type = tt)
 
   return(out)
 }
