@@ -2,13 +2,13 @@
 #'
 #' \code{add_se} compute the coefficients, standard errors and confidence intervals for different levels of factor variables used in linear models.
 #'
-#' Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}}, \code{\link[nlmer]{lme}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[glmmTMB]{glmmTMB}}
+#' Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}}, \code{\link[nlme]{lme}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[lmerTest]{lmer}} (lmer from lmerTest), \code{\link[glmmTMB]{glmmTMB}}
 #'
 #' Name_x must be the name of continuous variable interacting with the factor, factor - factor interaction are not supported.
 #'
 #' Default treatment contrasts are expected in the model, see \code{\link[stats]{contrasts}}, other type of contrasts might work but will lead to non-sensical results.
 #'
-#' @param model A fitted model object
+#' @param model A fitted model object, for the model type currently supported see Details
 #' @param name_f A character, the name of the factor variable
 #' @param name_x A character, the name of a continuous variable interacting with name_f, default is Intercept
 #' @param type whether the coefficient and the confidence interval should be reported on the link (type="link") or response scale (type="response", default), note that SE are only reported on the link scale.
