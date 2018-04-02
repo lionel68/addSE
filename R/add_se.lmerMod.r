@@ -18,6 +18,25 @@ add_se.lmerMod <- function(model,name_f,name_x="Intercept",type="response"){
     #the estimated average value at each level
     coef_f <- c(fixef(model)[1], fixef(model)[1]+fixef(model)[names(vcov_f)])
   }
+  else if(is.factor(model@frame[,name_x])){
+    #grab the standard error of the first factor
+    se_x <- se_vec[grep(paste0("^",name_x,"[^:]*$"),names(se_vec),perl=TRUE)]
+    #get the standard error for the interaction terms
+    se_f <- se_vec[grep(paste0("^ (",name_x,"\\w+ :",name_f, "\\w+) | (",name_f,"\\w+:",name_x, "\\w+) $")
+                        ,names(se_vec),perl=TRUE)]
+    #grab the covariance terms
+    lvl_x <- grep(paste0("^",name_x,"[^:]*$"),names(se_vec),perl=TRUE,value = TRUE)
+    lvl_f <- grep(paste0("^",name_x,"\\w+:",name_f,"\\w+$"),names(se_vec),perl=TRUE,value = TRUE)
+    vcov_f <- NULL #the container for the covariance values
+    for(ff in lvl_f){ #loop through the levels of f
+      x <- grep(strsplit(ff,":")[[1]][1],lvl_x,value=TRUE) #the row index
+      vcov_f <- c(vcov_f,vcov(model)[x,ff]) #only keep relevant interactions
+      names(vcov_f)[length(vcov_f)] <- ff #adding names just for safety checks
+    }
+    coef_f <- c(fixef(model)[grep(paste0("^",name_x,"[^:]*$"),names(se_vec),perl=TRUE)],
+                fixef(model)[grep(paste0("^",name_x,"[^:]*$"),names(se_vec),perl=TRUE)] +
+                  fixef(model)[grep(paste0("^",name_x,"\\w+:",name_f,"\\w+$"),names(se_vec),perl=TRUE)])
+  }
   else{
     #similar code for the case of another variable than the intercept
     se_x <- se_vec[name_x]
