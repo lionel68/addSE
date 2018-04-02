@@ -5,7 +5,7 @@ add_se.lme <- function(model,name_f,name_x="Intercept",type="response"){
   se_vec <- sqrt(diag(vcov(model)))
   names(se_vec) <- names(fixef(model))
   #keep the baseline name for later use
-  base_name <- paste0(name_f,levels(model$data[,name_f])[1])
+  row_names <- paste0(name_f,levels(model$data[,name_f]))
   if(name_x=="Intercept"){
     #the standard error of the intercept
     se_x <- se_vec[1]
@@ -27,6 +27,6 @@ add_se.lme <- function(model,name_f,name_x="Intercept",type="response"){
     vcov_f <- vcov_f[grep(":",names(vcov_f))]
     coef_f <- c(fixef(model)[name_x], fixef(model)[name_x]+fixef(model)[names(vcov_f)])
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name, type = tt)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, row_names, type = tt)
   return(out)
 }
