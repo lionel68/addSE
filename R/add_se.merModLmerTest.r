@@ -1,5 +1,5 @@
-add_se.glmerMod <- function(model,name_f,name_x="Intercept",type="response"){
-  linkinv <- model@resp$family$linkinv
+add_se.merModLmerTest <- function(model,name_f,name_x="Intercept",type="response"){
+  linkinv <- identity
   tt <- type
   #grab the standard error of the coefficients
   se_vec <- sqrt(diag(as.matrix(vcov(model))))
@@ -27,6 +27,6 @@ add_se.glmerMod <- function(model,name_f,name_x="Intercept",type="response"){
     vcov_f <- vcov_f[grep(":",names(vcov_f))]
     coef_f <- c(fixef(model)[name_x], fixef(model)[name_x]+fixef(model)[names(vcov_f)])
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type = tt)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name, type = tt)
   return(out)
 }

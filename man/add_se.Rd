@@ -7,7 +7,7 @@
 add_se(model, name_f, name_x = "Intercept", type = "response")
 }
 \arguments{
-\item{model}{A fitted model object}
+\item{model}{A fitted model object, for the model type currently supported see Details}
 
 \item{name_f}{A character, the name of the factor variable}
 
@@ -28,7 +28,7 @@ LCI, UCI : lower and upper bound of the 95\% confidence interval of the fitted c
 \code{add_se} compute the coefficients, standard errors and confidence intervals for different levels of factor variables used in linear models.
 }
 \details{
-Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}}, \code{\link[nlmer]{lme}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[glmmTMB]{glmmTMB}}
+Add_se currently support models fitted via: \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}}, \code{\link[nlme]{lme}}, \code{\link[lme4]{lmer}}, \code{\link[lme4]{glmer}}, \code{\link[lmerTest]{lmer}} (lmer from lmerTest), \code{\link[glmmTMB]{glmmTMB}}
 
 Name_x must be the name of continuous variable interacting with the factor, factor - factor interaction are not supported.
 

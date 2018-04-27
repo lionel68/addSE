@@ -1,2 +1,12 @@
-exportPattern("^[[:alpha:]]+")
+export(add_se)
 
+importFrom("stats", "coef", "vcov")
+importFrom("lme4","fixef")
+
+S3method(add_se, lm)
+S3method(add_se, glm)
+S3method(add_se, lme)
+S3method(add_se, lmerMod)
+S3method(add_se, glmerMod)
+S3method(add_se, glmmTMB)
+S3method(add_se, merModLmerTest)
