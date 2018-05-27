@@ -1,5 +1,5 @@
 #hidden function
-add_se_xxx <- function(coef_f, se_x, se_f, vcov_f, linkinv, type){
+add_se_xxx <- function(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type){
   #compute the summed SE
   se_f <- sqrt(se_x**2+se_f**2+2*vcov_f)
   #create the output dataframe
@@ -9,6 +9,7 @@ add_se_xxx <- function(coef_f, se_x, se_f, vcov_f, linkinv, type){
   else if(type == "response"){
     out <- data.frame(Coef = linkinv(coef_f), LCI = linkinv(coef_f - 1.96 * se_f), UCI = linkinv(coef_f + 1.96 * se_f))
   }
-  #rownames(out) <- row_names
+
+  rownames(out) <- base_name
   return(out)
 }
