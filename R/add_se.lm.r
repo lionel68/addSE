@@ -4,8 +4,7 @@ add_se.lm <- function(model,name_f,name_x="Intercept",type="response"){
   #grab the standard error of the coefficients
   se_vec <- summary(model)$coefficients[,2]
   #keep the baseline name for later use
-
-  #row_names <- paste0(name_f,levels(model$model[,name_f]))
+  base_name <- paste0(name_f,levels(model$model[,name_f])[1])
 
   if(name_x=="Intercept"){
     #the stabdard error of the intercept
@@ -51,7 +50,7 @@ add_se.lm <- function(model,name_f,name_x="Intercept",type="response"){
     coef_f <- c(coef(model)[name_coef[1]],coef(model)[name_coef[1]] + coef(model)[name_coef[-1]])
 
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, type=tt)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name, type=tt)
 
 
   return(out)
