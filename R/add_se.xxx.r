@@ -10,6 +10,7 @@ add_se_xxx <- function(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type){
     out <- data.frame(Coef = linkinv(coef_f), LCI = linkinv(coef_f - 1.96 * se_f), UCI = linkinv(coef_f + 1.96 * se_f))
   }
 
-  rownames(out) <- base_name
+  rownames(out)[1:length(se_x)] <- paste(rownames(out)[1:length(se_x)],base_name,sep=":")
+
   return(out)
 }
