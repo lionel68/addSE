@@ -19,13 +19,17 @@ add_se.glmmTMB <- function(model,name_f,name_x="Intercept",type="response"){
     coef_f <- c(fixef(model)$cond[1], fixef(model)$cond[1]+fixef(model)$cond[names(vcov_f)])
   }
   else{
-    #similar code for the case of another variable than the intercept
-    se_x <- se_vec[name_x]
-    se_f <- se_vec[grep(name_f,names(se_vec))]
-    se_f <- se_f[grep(":",names(se_f))]
-    vcov_f <- vcov(model)$cond[grep(name_f,rownames(vcov(model)$cond)),grep(name_x,colnames(vcov(model)$cond))][,1]
-    vcov_f <- vcov_f[grep(":",names(vcov_f))]
-    coef_f <- c(fixef(model)$cond[name_x], fixef(model)$cond[name_x]+fixef(model)$cond[names(vcov_f)])
+    #the SE names of interest
+    name_coef <- grep(paste0(name_x,"|",name_f,"\\w+:",name_f,"\\w+|name_x"),names(se_vec),perl=TRUE,value=TRUE)
+    #grab the relevant standard errors
+    se_f <- se_vec[name_coef]
+    #remove the SE from the main slope
+    se_x <- se_f[1]
+    se_f <- se_f[-1]
+    #grab the covariance terms
+    vcov_f <- vcov(model)$cond[name_coef[1],name_coef[-1]]
+    #the slopes at each level
+    coef_f <- c(fixef(model)$cond[name_coef[1]],fixef(model)$cond[name_coef[1]] + fixef(model)$cond[name_coef[-1]])
   }
   out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type = tt)
   return(out)
