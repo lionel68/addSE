@@ -1,7 +1,7 @@
 context("lm")
 
 data("iris")
-m <- lm(Sepal.Length ~ Sepal.Width * Species, iris)
+m <- lm(Sepal.Length ~ Species * Sepal.Width, iris)
 
 mm <- add_se(m, "Species")
 

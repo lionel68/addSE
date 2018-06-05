@@ -8,7 +8,7 @@ add_se.lm <- function(model,name_f,name_x="Intercept",type="response"){
   #grab the standard error of the coefficients
   se_vec <- summary(model)$coefficients[,2]
   #keep the baseline name for later use
-  base_name <- paste0(name_f,levels(model$model[,name_f])[1])
+  lvls <- paste0(name_f,levels(model$model[,name_f]))
   if(name_x=="Intercept"){
     #the stabdard error of the intercept
     se_x <- se_vec[1]
@@ -20,6 +20,7 @@ add_se.lm <- function(model,name_f,name_x="Intercept",type="response"){
     vcov_f <- vcov_f[grep("^((?!:).)*$",names(vcov_f),perl=TRUE)]
     #the estimated average value at each level
     coef_f <- c(coef(model)[1], coef(model)[1]+coef(model)[names(vcov_f)])
+    row_names <- paste("Intercept",lvls,sep="_")
   }
   else{
     #the SE names of interest
@@ -33,8 +34,9 @@ add_se.lm <- function(model,name_f,name_x="Intercept",type="response"){
     vcov_f <- vcov(model)[name_coef[1],name_coef[-1]]
     #the slopes at each level
     coef_f <- c(coef(model)[name_coef[1]],coef(model)[name_coef[1]] + coef(model)[name_coef[-1]])
+    row_names <- paste(name_x,lvls,sep=":")
   }
-  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, base_name,type=tt)
+  out <- add_se_xxx(coef_f, se_x, se_f, vcov_f, linkinv, row_names,type=tt)
 
   return(out)
 }
