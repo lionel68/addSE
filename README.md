@@ -35,7 +35,7 @@ add_se(m, name_f = "Species", name_x = "Sepal.Width")
 
 These results can then be used for plotting or reporting in result tables.
 
-So far the following models are supported: lm, glm, glm.nb (MASS), lme (nlme), lmer (lme4), glmer (lme4)
+So far the following models are supported: lm, glm, glm.nb (MASS), lme (nlme), lmer (lme4), glmer (lme4), merModLmerTest (lmerTest)
 
 ## TODOs:
 
