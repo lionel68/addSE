@@ -5,7 +5,7 @@ add_se.glmerMod <- function(model,name_f,name_x="Intercept",type="response"){
   se_vec <- sqrt(diag(as.matrix(vcov(model))))
   names(se_vec) <- names(fixef(model))
   #keep the baseline name for later use
-  row_names <- paste0(name_f,levels(model@frame[,name_f]))
+  lvls <- paste0(name_f,levels(model@frame[,name_f]))
   if(name_x=="Intercept"){
     #the standard error of the intercept
     se_x <- se_vec[1]
