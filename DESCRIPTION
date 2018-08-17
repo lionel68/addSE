@@ -12,8 +12,8 @@ LazyData: true
 RoxygenNote: 6.0.1
 Suggests: 
 	testthat,
-	glmmTMB >= (0.2.2.0)
-	lme4 >= (1.1-17)
+	glmmTMB (>= 0.2.2.0),
+	lme4 (>= 1.1-17)
 
 	
 
