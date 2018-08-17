@@ -14,5 +14,5 @@ Suggests:
 	testthat,
 	glmmTMB >= (0.2.2.0)
 Imports: 
-	lme4 >= (1.1)
+	lme4 >= (1.1-17)
 
