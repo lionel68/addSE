@@ -37,6 +37,8 @@ These results can then be used for plotting or reporting in result tables.
 
 So far the following models are supported: lm, glm, glm.nb (MASS), lme (nlme), lmer (lme4), glmer (lme4), merModLmerTest (lmerTest)
 
+Please report bugs, enhancment wishes and other errors in the [issues](https://github.com/lionel68/addSE/issues) tab.
+
 ## TODOs:
 
 * support for other model types
